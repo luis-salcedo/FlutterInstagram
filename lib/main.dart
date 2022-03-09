@@ -3,7 +3,6 @@ import 'screens/main_screen.dart';
 import 'screens/insights.dart';
 import 'screens/engagement.dart';
 import 'screens/settings.dart';
-import 'components/bottom_nav.dart';
 //import 'networking/facebook_api.dart';
 
 void main() {
