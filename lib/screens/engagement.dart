@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram1/components/bottom_nav.dart';
 import 'package:instagram1/components/single_text_button.dart';
-import 'package:instagram1/components/double_text_button.dart';
 class Engagement extends StatefulWidget {
-  Engagement({Key? key}) : super(key: key);
+  const Engagement({Key? key}) : super(key: key);
 
   @override
   State<Engagement> createState() => _EngagementState();
@@ -30,13 +28,13 @@ class _EngagementState extends State<Engagement> {
               children: const[
                 Icon(
                   Icons.people,
-                  color: Colors.green,
-                  size: 32.0,
+                  color: Colors.blue,
+                  //size: 32.0,
                 ),
                 SizedBox(width: 15,),
                 Text('My Best Followers',
                   style: TextStyle(
-                    fontSize: 22.0
+                    fontSize: 20.0
                   ),
                 ),
               ],
@@ -73,13 +71,13 @@ class _EngagementState extends State<Engagement> {
               children: const[
                 Icon(
                   Icons.people,
-                  color: Colors.green,
-                  size: 32.0,
+                  color: Colors.blue,
+                  //size: 32.0,
                 ),
                 SizedBox(width: 15,),
                 Text('Missed Connections',
                   style: TextStyle(
-                      fontSize: 22.0
+                      fontSize: 20.0
                   ),
                 ),
               ],
@@ -107,14 +105,14 @@ class _EngagementState extends State<Engagement> {
             Row(
               children: const[
                 Icon(
-                  Icons.people,
-                  color: Colors.green,
-                  size: 32.0,
+                  Icons.person_add_disabled,
+                  color: Colors.blue,
+                  //size: 32.0,
                 ),
                 SizedBox(width: 15,),
                 Text('Ghost Followers',
                   style: TextStyle(
-                      fontSize: 22.0
+                      fontSize: 20.0
                   ),
                 ),
               ],
@@ -151,13 +149,13 @@ class _EngagementState extends State<Engagement> {
               children: const[
                 Icon(
                   Icons.lock_clock,
-                  color: Colors.green,
-                  size: 32.0,
+                  color: Colors.blue,
+                  //size: 32.0,
                 ),
                 SizedBox(width: 15,),
                 Text('History',
                   style: TextStyle(
-                      fontSize: 22.0
+                      fontSize: 20.0
                   ),
                 ),
               ],
@@ -203,13 +201,13 @@ class _EngagementState extends State<Engagement> {
               children: const[
                 Icon(
                   Icons.map,
-                  color: Colors.green,
-                  size: 32.0,
+                  color: Colors.blue,
+                  //size: 32.0,
                 ),
                 SizedBox(width: 15,),
                 Text('Distance',
                   style: TextStyle(
-                      fontSize: 22.0
+                      fontSize: 20.0
                   ),
                 ),
               ],

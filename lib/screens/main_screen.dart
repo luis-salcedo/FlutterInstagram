@@ -2,7 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart' as SlidingText;
-
+import 'package:instagram1/components/double_container_button.dart';
+import 'package:instagram1/components/who_admires_me_button.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -92,11 +93,11 @@ class _MainScreenState extends State<MainScreen> {
                   TwoContainerWidget(
                     leftWidgetTitle: 'New Story Viewers',
                     leftWidgetUserData: '0',
-                    leftWidgetIcon: Icons.handshake,
+                    leftWidgetIcon: Icons.person_pin_sharp,
                     leftWidgetCallBack: (){},
                     rightWidgetTitle: 'Tracked Stories',
                     rightWidgetUserData: '0',
-                    rightWidgetIcon: Icons.looks,
+                    rightWidgetIcon: Icons.remove_red_eye_rounded,
                     rightWidgetCallBack: (){},
                   ),
                   const SizedBox(
@@ -186,102 +187,7 @@ class _LiveDataWidgetState extends State<LiveDataWidget> {
   }
 }
 
-class WhoAdmiresMeWidget extends StatelessWidget {
-  const WhoAdmiresMeWidget({
-    required this.widgetText,
-    required this.widgetSecondText,
-    required this.widgetIcon,
-    required this.widgetStats,
-    required this.widgetFunction
-  });
-  final String widgetText;
-  final String widgetSecondText;
-  final IconData widgetIcon;
-  final String widgetStats;
-  final Function()? widgetFunction;
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      // who admires me 1.icon 2.text 3.stats
-      child: TextButton(
-        style: TextButton.styleFrom(
-            //elevation: MaterialStateProperty.all(20),
-            padding: const EdgeInsets.only(right: 0),
-            elevation: 20,
-            primary: Colors.black),
-        onPressed: widgetFunction,
-        child: Container(
 
-          padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 40),
-          //margin: const EdgeInsets.only(left: 5, right: 5),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    child: Icon(
-                      widgetIcon,
-                      color: Colors.blue,
-                      size: 50,
-                    ),
-                  ),
-                  /*Icon(
-                    widgetIcon,
-                    color: Colors.blue,
-                    size: 50,
-                  ),*/
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Column(
-                      //Start Text from left
-                      textBaseline: TextBaseline.alphabetic,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      children: [
-                        Text(
-                          widgetText,
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                          ), //Style text
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          widgetSecondText,
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Text(widgetStats,
-                    style: const TextStyle(
-                      fontSize: 25.0,
-                      color: Colors.white
-                    ),)
-                ],
-              ),
-            ],
-          ),
-          decoration: BoxDecoration(
-            color: Colors.blueGrey[800],
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class UserStatsWidget extends StatelessWidget {
   const UserStatsWidget({
@@ -363,10 +269,6 @@ class UserStatsWidget extends StatelessWidget {
 }
 
 class WatchStoriesWidget extends StatelessWidget {
-  const WatchStoriesWidget({
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -390,169 +292,3 @@ class WatchStoriesWidget extends StatelessWidget {
   }
 }
 
-class TwoContainerWidget extends StatelessWidget {
-  const TwoContainerWidget({
-    required this.leftWidgetUserData,
-    required this.rightWidgetUserData,
-    required this.leftWidgetCallBack,
-    required this.rightWidgetCallBack,
-    required this.leftWidgetTitle,
-    required this.rightWidgetTitle,
-    required this.leftWidgetIcon,
-    required this.rightWidgetIcon,
-  });
-  final String? leftWidgetUserData;
-  final String? rightWidgetUserData;
-  final Function()? leftWidgetCallBack;
-  final Function()? rightWidgetCallBack;
-  final String? leftWidgetTitle;
-  final String? rightWidgetTitle;
-  final IconData leftWidgetIcon;
-  final IconData rightWidgetIcon;
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      // New Followers  + Lost Followers Container
-      child: Row(
-        children: [
-          Expanded(
-            child: TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(0),
-              ),
-              onPressed: leftWidgetCallBack,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey[800],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 40),
-                //margin: const EdgeInsets.only(left: 5, right: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(leftWidgetIcon, size: 40,),
-                        const SizedBox(width: 5,),
-                        Text(leftWidgetUserData!,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),),
-                      ],
-                    ),
-                    Text(leftWidgetTitle!,
-                      textScaleFactor: 0.8,
-                      style: const TextStyle(
-                          overflow: TextOverflow.visible,
-                          color: Colors.grey,
-                          //fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-
-              ),
-            ),
-          ),
-          //Second Container
-          const SizedBox(width: 15,),
-          Expanded(
-            child: TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(0),
-              ),
-              onPressed: rightWidgetCallBack,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey[800],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.only(top: 20, bottom: 20, left: 10, right: 40),
-                //margin: const EdgeInsets.only(left: 5, right: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(rightWidgetIcon, size: 40,),
-                        const SizedBox(width: 5,),
-                        Text(rightWidgetUserData!,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),),
-                      ],
-                    ),
-                    Text(rightWidgetTitle!,
-                      textScaleFactor: 0.8,
-                      style: const TextStyle(
-                          color: Colors.grey
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-
-class mmm{
-  Widget test(){
-    return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            //Here goes /* prfile pic and stats
-            child: Column(
-              children: [
-                const UserStatsWidget(
-                  followers: '68',
-                  followings: '382',
-                  profilePicture: Icons.person,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                //Live moving user Data
-                LiveDataWidget(),
-                const SizedBox(
-                  height: 10,
-                ),
-                WhoAdmiresMeWidget(
-                  widgetFunction: (){},
-                  widgetText: 'Who Admires Me',
-                  widgetSecondText: 'Find out who\'s interested in me',
-                  widgetIcon: Icons.person,
-                  widgetStats: '36',
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                /*const TwoContainerWidget(
-                  widgetText: 'Lost Followers',
-                  widgetIcon: Icons.abc,
-                  widgetStat: 'Stats',
-                ),*/
-
-                // Watch Stories
-                const SizedBox(
-                  height: 10,
-                ),
-                const WatchStoriesWidget()
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

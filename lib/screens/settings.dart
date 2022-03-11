@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram1/components/bottom_nav.dart';
-
 import '../components/settings_button.dart';
-import '../components/single_text_button.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key? key}) : super(key: key);

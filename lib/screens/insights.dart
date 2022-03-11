@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram1/components/single_text_button.dart';
 import 'package:instagram1/components/double_text_button.dart';
 import 'package:instagram1/screens/insights/statistics.dart';
+import 'package:instagram1/screens/insights/story_insights/main_screen.dart';
 //TO DO: Fix colors, add button destination
 class Insights extends StatefulWidget {
 
@@ -34,7 +35,7 @@ class _InsightsState extends State<Insights> {
                       children: const [
                         Icon(
                           Icons.tv,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                         SizedBox(width: 10),
                         Text(
@@ -96,7 +97,11 @@ class _InsightsState extends State<Insights> {
                   ),
                   const SizedBox(height: 15),
                   DoubleTextButton(
-                    functionCall: (){},
+                    functionCall: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return StoryInsights();
+                      }));
+                    },
                     primaryText: 'Story Insights',
                     secondaryText:
                         "Gain Insights into your stories in one step",
@@ -108,7 +113,7 @@ class _InsightsState extends State<Insights> {
                     children: const [
                       Icon(
                         Icons.panorama_fish_eye,
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                       SizedBox(
                         width: 8,
