@@ -1,23 +1,68 @@
 // ignore_for_file: use_key_in_widget_constructors
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart' as SlidingText;
 import 'package:instagram1/components/double_container_button.dart';
 import 'package:instagram1/components/who_admires_me_button.dart';
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
 
+class MainScreen extends StatefulWidget {
+  MainScreen({
+    this.userName,
+    this.userFollowers,
+    this.userFollowing,
+    required this.userProfilePicUrl,
+  });
+
+  String? userName;
+  String? userFollowers;
+  String? userFollowing;
+  String userProfilePicUrl;
+  String? photos = '';
+  String? videos = '';
+  String? likes = '';
+  String? comments = '';
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final String userName = 'Luis';
+
+  String? dropDownValue = '';
+  var dropdownItems = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hello, $userName'),
+        title: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              /*Expanded(
+                child: DropdownButton(
+                  //alignment: AlignmentDirectional.center,
+                    value: dropDownValue,
+                    // Array list of items
+                    items: dropdownItems.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? value){
+                      setState(() {
+                          dropDownValue = value!;
+                      });
+                    }),
+              ),*/
+              IconButton(onPressed: (){}, icon: const Icon(Icons.refresh))
+            ],
+          ),
+        )
       ),
       body: CustomScrollView(
         cacheExtent: 20.0,
@@ -28,16 +73,24 @@ class _MainScreenState extends State<MainScreen> {
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 <Widget>[
-                  const UserStatsWidget(
-                    followers: '68',
-                    followings: '382',
-                    profilePicture: Icons.person,
+                  UserStatsWidget(
+                    followers: widget.userFollowers!,
+                    followings: widget.userFollowing!,
+                    profilePicture: widget.userProfilePicUrl,
+
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   //Live moving user Data
-                  LiveDataWidget(),
+                  LiveDataWidget(
+                    followers: widget.userFollowers,
+                    following: widget.userFollowing,
+                    photos: widget.photos,
+                    videos: widget.videos,
+                    likes: widget.likes,
+                    comments: widget.comments,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -46,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                     widgetText: 'Who Admires Me',
                     widgetSecondText: 'Find out who\'s interested in me',
                     widgetIcon: Icons.person,
-                    widgetStats: '36',
+                    widgetStats: '0',
                   ),
                   const SizedBox(
                     height: 10,
@@ -135,52 +188,63 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class LiveDataWidget extends StatefulWidget {
-  @override
-  State<LiveDataWidget> createState() => _LiveDataWidgetState();
-}
+class LiveDataWidget extends StatelessWidget {
+  LiveDataWidget({
+    required this.followers,
+    required this.following,
+    required this.photos,
+    required this.videos,
+    required this.likes,
+    required this.comments,
 
-class _LiveDataWidgetState extends State<LiveDataWidget> {
-  Map<String, int> liveProfileData = {
-    'followers': 68,
-    'followings': 382,
-    'photos': 1,
-    'videos': 0,
-    'likesTotal': 36,
-    'commentsTotal': 0,
-    'comentsPerPhoto': 0,
-  };
+  });
+  String? followers;
+  String? following;
+  String? photos;
+  String? videos;
+  String? likes;
+  String? comments;
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> liveProfileData = {
+    'Followers': followers!,
+    'Followings': following!,
+    'Photos': photos!,
+    'Videos': videos!,
+    'Likes': likes!,
+    'Comments': comments!,
+    };
     return Container(
       color: Colors.black38,
       child: Column(
+        textBaseline: TextBaseline.alphabetic,
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             width: 490,
             height: 25,
             child: SlidingText.Marquee(
-              text: 'Data',
+              pauseAfterRound: const Duration(seconds: 0),
+              text:
+                  ' ${liveProfileData.keys.elementAt(0)} ${liveProfileData.values.elementAt(0)} '
+                  ' ${liveProfileData.keys.elementAt(1)} ${liveProfileData.values.elementAt(1)} '
+                  ' ${liveProfileData.keys.elementAt(2)} ${liveProfileData.values.elementAt(2)} '
+                  ' ${liveProfileData.keys.elementAt(3)} ${liveProfileData.values.elementAt(3)} '
+                  ' ${liveProfileData.keys.elementAt(4)} ${liveProfileData.values.elementAt(4)} '
+                      ' ${liveProfileData.keys.elementAt(5)} ${liveProfileData.values.elementAt(5)} '
+              ,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
+                wordSpacing: 10,
+
               ),
               velocity: 30.0,
             ),
           ),
-          SizedBox(
-            width: 490,
-            height: 25,
-            child: SlidingText.Marquee(
-              text: 'Data',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-              ),
-              velocity: 30.0,
-            ),
-          ),
+
         ],
       ),
     );
@@ -198,71 +262,69 @@ class UserStatsWidget extends StatelessWidget {
 
   final String followers;
   final String followings;
-  final IconData? profilePicture;
+  final String profilePicture;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SafeArea(
       child: Container(
-        color: Colors.black38,
-        child: Column(children: [
-          Row(
-            children: [
-              const SizedBox(
-                width: 50,
-              ),
-              Column(
-                //Followers + data
-                children: [
-                  Text(
-                    followers,
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.green[700],
-                    ),
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              //Followers + data
+              children: [
+                Text(
+                  followers,
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.green[700],
                   ),
-                  const SizedBox(
-                    height: 5,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'Followers',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 211, 211, 211),
                   ),
-                  const Text(
-                    'Followers',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 211, 211, 211),
-                    ),
+                ),
+              ],
+            ),
+
+            Expanded(
+              child: CircleAvatar(
+                radius: 50,
+                //backgroundColor: Colors.white,
+                child: ClipOval(
+                  child: Image.network(
+                    profilePicture,
+                    width: 100,
+                    fit: BoxFit.cover,),
                   ),
-                ],
+                ),
               ),
-              // Icon
-              const SizedBox(
-                width: 50,
-              ),
-              Icon(
-                profilePicture,
-                size: 60,
-              ),
-              const SizedBox(
-                width: 50,
-              ),
-              Column(
-                //Followings + data
-                children: [
-                  Text(
-                    followings,
-                    style: TextStyle(color: Colors.green[700], fontSize: 30),
+            Column(
+              //Followings + data
+              children: [
+                Text(
+                  followings,
+                  style: TextStyle(color: Colors.green[700], fontSize: 30),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'Followings',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 211, 211, 211),
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Text(
-                    'Followings',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 211, 211, 211),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ]),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
