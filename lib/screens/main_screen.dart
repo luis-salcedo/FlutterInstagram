@@ -1,8 +1,10 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart' as SlidingText;
 import 'package:instagram1/components/double_container_button.dart';
 import 'package:instagram1/components/who_admires_me_button.dart';
+import 'package:instagram1/components/user_stats_button.dart';
+import 'package:instagram1/components/watch_stories_widget.dart';
+import 'package:instagram1/components/live_data_widget.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({
@@ -38,31 +40,21 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+        leading: Icon(Icons.person),
+        title: Center(child: const Text('Username')),
+        actions: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              /*Expanded(
-                child: DropdownButton(
-                  //alignment: AlignmentDirectional.center,
-                    value: dropDownValue,
-                    // Array list of items
-                    items: dropdownItems.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    onChanged: (String? value){
-                      setState(() {
-                          dropDownValue = value!;
-                      });
-                    }),
-              ),*/
+              Text('3/13 13:55:00', style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey
+                ),
+              ),
               IconButton(onPressed: (){}, icon: const Icon(Icons.refresh))
             ],
-          ),
-        )
+          )
+        ],
       ),
       body: CustomScrollView(
         cacheExtent: 20.0,
@@ -184,172 +176,6 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class LiveDataWidget extends StatelessWidget {
-  LiveDataWidget({
-    required this.followers,
-    required this.following,
-    required this.photos,
-    required this.videos,
-    required this.likes,
-    required this.comments,
-
-  });
-  String? followers;
-  String? following;
-  String? photos;
-  String? videos;
-  String? likes;
-  String? comments;
-
-  @override
-  Widget build(BuildContext context) {
-    Map<String, String> liveProfileData = {
-    'Followers': followers!,
-    'Followings': following!,
-    'Photos': photos!,
-    'Videos': videos!,
-    'Likes': likes!,
-    'Comments': comments!,
-    };
-    return Container(
-      color: Colors.black38,
-      child: Column(
-        textBaseline: TextBaseline.alphabetic,
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 490,
-            height: 25,
-            child: SlidingText.Marquee(
-              pauseAfterRound: const Duration(seconds: 0),
-              text:
-                  ' ${liveProfileData.keys.elementAt(0)} ${liveProfileData.values.elementAt(0)} '
-                  ' ${liveProfileData.keys.elementAt(1)} ${liveProfileData.values.elementAt(1)} '
-                  ' ${liveProfileData.keys.elementAt(2)} ${liveProfileData.values.elementAt(2)} '
-                  ' ${liveProfileData.keys.elementAt(3)} ${liveProfileData.values.elementAt(3)} '
-                  ' ${liveProfileData.keys.elementAt(4)} ${liveProfileData.values.elementAt(4)} '
-                      ' ${liveProfileData.keys.elementAt(5)} ${liveProfileData.values.elementAt(5)} '
-              ,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                wordSpacing: 10,
-
-              ),
-              velocity: 30.0,
-            ),
-          ),
-
-        ],
-      ),
-    );
-  }
-}
-
-
-
-class UserStatsWidget extends StatelessWidget {
-  const UserStatsWidget({
-    required this.followers,
-    required this.followings,
-    required this.profilePicture,
-  });
-
-  final String followers;
-  final String followings;
-  final String profilePicture;
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              //Followers + data
-              children: [
-                Text(
-                  followers,
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.green[700],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  'Followers',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 211, 211, 211),
-                  ),
-                ),
-              ],
-            ),
-
-            Expanded(
-              child: CircleAvatar(
-                radius: 50,
-                //backgroundColor: Colors.white,
-                child: ClipOval(
-                  child: Image.network(
-                    profilePicture,
-                    width: 100,
-                    fit: BoxFit.cover,),
-                  ),
-                ),
-              ),
-            Column(
-              //Followings + data
-              children: [
-                Text(
-                  followings,
-                  style: TextStyle(color: Colors.green[700], fontSize: 30),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  'Followings',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 211, 211, 211),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class WatchStoriesWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: const [
-            CircleAvatar(
-              backgroundColor: Colors.grey,
-              radius: 20,
-              child: Icon(Icons.person),),
-            SizedBox(height: 5,),
-            Text('Hello World', style: TextStyle(
-              fontSize: 9,
-              color: Colors.grey
-              ),
-            )
-          ],
-        )
-      ],
     );
   }
 }

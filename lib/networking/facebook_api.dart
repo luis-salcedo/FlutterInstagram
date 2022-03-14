@@ -1,7 +1,7 @@
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter/material.dart';
 
-class Facebook extends StatelessWidget {
+class FacebookLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +23,7 @@ class Facebook extends StatelessWidget {
                 if (result.status == LoginStatus.success) {
                   // you are logged
                   final AccessToken accessToken = result.accessToken!;
+
                 } else {
                   print(result.status);
                   print(result.message);
@@ -35,8 +36,7 @@ class Facebook extends StatelessWidget {
             child: TextButton(
               onPressed: (() async {
                 await FacebookAuth.instance
-                    .logOut(); // by default we request the email and the public profile
-                // or FacebookAuth.i.login()
+                    .logOut();
               }),
               child: const Text('Logout'),
             ),

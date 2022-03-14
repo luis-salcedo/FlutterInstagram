@@ -3,22 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 String prettyPrint(Map json) {
   JsonEncoder encoder = new JsonEncoder.withIndent('  ');
   String pretty = encoder.convert(json);
   return pretty;
 }
 
-class MyApp extends StatefulWidget {
+class FullFacebookApi extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _FullFacebookApiState createState() => _FullFacebookApiState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _FullFacebookApiState extends State<FullFacebookApi> {
   Map<String, dynamic>? _userData;
   AccessToken? _accessToken;
   bool _checking = true;
@@ -71,9 +67,12 @@ class _MyAppState extends State<MyApp> {
       final userData = await FacebookAuth.instance.getUserData();
       // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
       _userData = userData;
+      _userData?.forEach((k,v) {
+        print('${k}: ${v}');
+      });
     } else {
-      print(result.status);
-      print(result.message);
+      print('Status: ${result.status}');
+      print('Message: ${result.message}');
     }
 
     setState(() {
