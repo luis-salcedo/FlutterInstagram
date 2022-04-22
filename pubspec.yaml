@@ -37,6 +37,7 @@ dependencies:
   marquee: ^2.2.1
   flutter_facebook_auth: ^4.1.1
   instagram_public_api: ^0.2.3
+  google_fonts: ^2.3.1
 
 dev_dependencies:
   flutter_test:

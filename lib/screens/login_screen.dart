@@ -3,6 +3,8 @@ import 'package:instagram1/full_api.dart';
 import 'package:instagram1/screens/main_screen.dart';
 import 'package:instagram1/screens/home_screen.dart';
 import 'package:instagram1/networking/facebook_api.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -16,9 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
     double image_opacity = 1;
     return Scaffold(
       //backgroundColor: Colors.blueGrey[300],
-      appBar: AppBar(
-        title: Text('Login Screen'),
-      ),
+      backgroundColor: Colors.white,
       body: CustomScrollView(
           cacheExtent: 20.0,
           shrinkWrap: true,
@@ -34,7 +34,23 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 20,
             ),
+            /* Header Text */
             Container(
+              padding: const EdgeInsets.only(
+                top: 40
+              ),
+              alignment: AlignmentDirectional.center,
+              //Needs to be script
+              child: Text('Instagram', style: GoogleFonts.dancingScript(
+                textStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 70,
+                    fontWeight: FontWeight.bold
+                ),
+              )
+              ),
+            ),
+            Container( //Username Field
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
@@ -52,14 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold
                     ),
                   ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 3, color: Colors.blue),
+
+                  ),
                 ),
                 onChanged: (value) {
                   username = value;
-                },
-                onTap: (){
-                  setState(() {
-                    image_opacity = 0.1;
-                  });
                 },
               ),
             ),
