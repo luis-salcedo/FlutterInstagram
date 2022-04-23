@@ -8,31 +8,34 @@ import 'settings.dart';
 import 'package:instagram_public_api/instagram_public_api.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({this.userName});
+  HomeScreen({this.userName, this.password});
   String? userName;
-
+  String? password;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   FlutterInsta insta = FlutterInsta();
   late InstaProfileData user;
   String userID = '';
   String userFollowers = '';
   String userFollowings = '';
-  String userIsVerified = '';
+  bool userIsVerified = false;
   String userProfilePic = '';
 
-  void getUserData() async{
-    user = await insta.getProfileData('${widget.userName}');
+  void getUserData() async {
+    try {
+      user = await insta.getProfileData('${widget.userName}');
+    } catch (e) {
+      // print('Error!$e');
+    }
     setState(() {
       userID = user.username!;
       userFollowers = user.followers!;
       userFollowings = user.following!;
       userProfilePic = user.profilePicURL!;
-      userIsVerified = '';
+      userIsVerified = user.isVerified!;
     });
   }
 
@@ -42,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getUserData();
     super.initState();
   }
+
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -61,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _selectedIndex = index;
       });
     }
+
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
           appBarTheme: const AppBarTheme(color: Colors.black),
